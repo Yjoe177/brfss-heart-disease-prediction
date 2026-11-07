@@ -1,0 +1,225 @@
+\documentclass[10pt,conference,compsocconf]{IEEEtran}
+\usepackage{amsmath}
+\usepackage{url}
+\usepackage[hidelinks]{hyperref}
+
+\begin{document}
+
+\title{Predicting Coronary Heart Disease from BRFSS 2015 with\\
+Plain SGD and L2-Regularised Logistic Regression}
+
+\author{
+  \IEEEauthorblockN{Youssef Ahmed}
+  \IEEEauthorblockA{\textit{Westlake University}\\
+  \textit{Machine Learning Course --- Project 1}}
+}
+
+\maketitle
+
+\begin{abstract}
+We predict reported coronary heart disease, myocardial infarction, or angina
+from the 2015 BRFSS (328{,}135 labeled; 8.83\% positive; 44.8\% missing). We
+use plain single-sample SGD logistic regression with an all-weight L2 penalty.
+On the seed-42 training-side partition (also used earlier), $\lambda=10^{-5}$
+had the best calibration F1 and a 27\% smaller norm than $\lambda=0$. Full-data
+5-fold CV gives $0.4303\pm0.0060$ F1, 0.8622 AUROC and 0.4188 PR-AUC;
+unregularized encoded gives $0.4315\pm0.0053$ F1. The frozen threshold is
+0.2148; final predictions are 17{,}310 positive.
+\end{abstract}
+
+\section{Introduction and Data}
+Coronary heart disease is a leading cause of death, and survey data can help
+identify respondents with a reported history of heart disease. We use the 2015
+BRFSS~\cite{brfss15}; the target
+\texttt{\_MICHD} is positive when a respondent reports that a health
+professional told them they had coronary heart disease, a myocardial
+infarction, or angina. The training set has 328{,}135 labeled rows (28{,}975
+positive, 8.83\%), 321 raw features, substantial missingness and coded
+categorical variables. The test set has 109{,}379 rows.
+
+\section{Preprocessing and Feature Representation}
+For every fitting portion, medians, means, standard deviations and category
+sets are learned from that portion only and applied unchanged to held-out or
+test data. We remove 14 identifiers and survey-design fields (interview date
+components, record number, disposition code, sampling unit, stratum and survey
+weights), remove constant columns, median-impute and standardise numeric
+features, and one-hot encode features with at most 15 distinct finite training
+values. We use $K-1$ dummies, the most frequent value as reference, and an
+explicit missing category. Designs have 1{,}129--1{,}130 columns on the
+262{,}508-row training portions and 1{,}120 on all data.
+
+A header-level check confirmed that \texttt{\_MICHD} is the separate target and
+that \texttt{CVDINFR4} and \texttt{CVDCRHD4}, direct source variables for its
+definition, are absent from the predictors; this does not prove the absence of
+every derived relationship. We retained \texttt{CVDSTRK3}, which records stroke
+history rather than the target condition.
+
+\section{Six Required Course Algorithms}
+\texttt{implementations.py} contains the six required functions:
+\texttt{mean\_squared\_error\_gd}, \texttt{mean\_squared\_error\_sgd},
+\texttt{least\_squares}, \texttt{ridge\_regression},
+\texttt{logistic\_regression} and \texttt{reg\_logistic\_regression}. Their
+signatures and behavior are unchanged, and they pass all 25 public tests. The
+final model and the experiments use the shared plain-SGD routine in
+\texttt{pipeline.py}; \texttt{run.py} is the final prediction entry point.
+
+\section{Plain Stochastic Gradient Descent}
+For labels $y_i\in\{0,1\}$ and logits $z_i=x_i^{\top}w$, the mean logistic loss
+is
+\begin{equation}
+L(w)=\frac1N\sum_{i=1}^{N}\left[\log(1+e^{z_i})-y_i z_i\right].
+\end{equation}
+For one example, the update is
+\begin{equation}
+w\leftarrow w-\eta_t\left(\sigma(x_i^{\top}w)-y_i\right)x_i,
+\end{equation}
+where $\sigma(z)=1/(1+e^{-z})$ and $t$ is the epoch index. We use the inverse
+schedule $\eta_t=0.01/(1+0.1(t-1))$ for 90 epochs, reshuffling each epoch with
+seed 2027. There are no moment estimates or per-parameter scaling. We use a
+stable sigmoid and log loss and compute the full loss only at checkpoints.
+
+We verified the analytic gradient against central finite differences for the
+unregularized and L2 objectives, the average of per-sample gradients against
+the full-data gradient, a manual update, schedule values, seed-reproducible
+shuffling, finite losses, and the absence of adaptive state. The loss decreased
+on a controlled synthetic problem. Because SGD is noisy, we use a fixed epoch
+cap rather than validation early stopping.
+
+\section{L2 Regularisation}
+The penalized objective is $J(w)=L(w)+\lambda\sum_{j=0}^{d}w_j^2$, so
+\begin{equation}
+w\leftarrow w-\eta_t\left[
+\left(\sigma(x_i^{\top}w)-y_i\right)x_i+2\lambda w\right].
+\end{equation}
+The penalty includes the intercept, matching the course convention. We studied
+$\lambda\in\{0,10^{-5},10^{-4},10^{-3}\}$ on the seed-42 stratified 80/20
+partition of all labeled data: 262{,}508 fit and 65{,}627 calibration rows.
+This partition was also used during earlier development. The fitting rows train
+each $\lambda$; the calibration rows select the threshold and supply the F1
+values, so this study describes model selection and regularization behavior,
+not independent generalization. It is not the five-fold CV; the same SGD
+configuration and epochs were used for every $\lambda$.
+
+\begin{table}[t]
+\centering
+\small
+\caption{L2 study on the seed-42 training-side 80/20 partition (262{,}508 fit,
+65{,}627 calibration), also used earlier; F1 uses a calibration-optimized
+threshold, not independent validation. $\Delta$ is calibration minus training loss.}
+\label{tab:reg}
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{lcccc}
+\hline
+$\lambda$ & F1 & AUROC & $\|w\|_2$ & $\Delta$\\
+\hline
+0 & 0.4368 & 0.8622 & 10.537 & $+0.00219$\\
+$10^{-5}$ & \textbf{0.4374} & \textbf{0.8625} & 7.663 & $+0.00182$\\
+$10^{-4}$ & 0.4360 & 0.8623 & 4.180 & $+0.00109$\\
+$10^{-3}$ & 0.4284 & 0.8581 & 2.060 & $+0.00062$\\
+\hline
+\end{tabular}
+\end{table}
+
+The weakly regularized model achieved a slightly lower calibration logistic
+loss (0.22021 versus 0.22037) and a 27\% smaller norm. $\lambda=10^{-4}$ shrinks
+the norm by 60\% at a cost of 0.0014 F1; $\lambda=10^{-3}$ underfits (F1 0.4284,
+AUROC 0.8581). The training--calibration gap narrows with stronger penalties.
+A smaller norm alone is not evidence of better generalization, and the CV shows
+no uniform F1 advantage for the regularized model; $\lambda=10^{-5}$ is retained
+because the calibration study supports it and coefficients are controlled.
+
+\section{Full-Data Stratified Five-Fold Cross-Validation}
+\label{sec:cv}
+We run one stratified five-fold CV on all 328{,}135 labeled examples
+(28{,}975 positives, 299{,}160 negatives). Each fold holds out exactly 65{,}627
+rows: 5{,}795 positives and 59{,}832 negatives. Every row appears in exactly one
+evaluation fold and four training sets; the fold seed is 2028 and assignments
+are saved.
+
+Each 262{,}508-row outer training portion is split, stratified, into 210{,}006
+fitting and 52{,}502 inner calibration rows. Preprocessing is fitted only on the
+fitting rows. The threshold is chosen on inner calibration data to maximize
+positive-class F1 and frozen; the model and preprocessing are refitted on the
+complete outer training portion, and the threshold is applied once to the
+held-out fold. No held-out label influences its own preprocessing, threshold,
+or fit. All models use the same folds.
+
+Hyperparameters, $\lambda$, and the final threshold were frozen before this CV;
+all labeled rows had participated in earlier training-side development, so the
+CV is a retrospective evaluation of a frozen procedure, not an untouched
+independent test. The folds are correlated and their SD is descriptive.
+
+\begin{table}[t]
+\centering
+\small
+\caption{Full-data stratified five-fold CV on all 328{,}135 labeled examples.
+F1 is mean $\pm$ sample SD over five held-out folds; AUROC and PR-AUC are fold
+means. Thresholds are selected on inner data only.}
+\label{tab:cv}
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{lccc}
+\hline
+Model & F1 (mean $\pm$ SD) & AUROC & PR-AUC\\
+\hline
+Majority ($-$1) & 0.0000 $\pm$ 0.0000 & 0.5000 & 0.0883\\
+Ridge (encoded) & 0.4272 $\pm$ 0.0027 & 0.8583 & 0.4161\\
+Logistic (numeric) & 0.4022 $\pm$ 0.0036 & 0.8411 & 0.3502\\
+Logistic (encoded) & 0.4315 $\pm$ 0.0053 & 0.8619 & 0.4188\\
+\textbf{L2 logistic (encoded)} & \textbf{0.4303 $\pm$ 0.0060} & \textbf{0.8622} & \textbf{0.4188}\\
+\hline
+\end{tabular}
+\end{table}
+
+The unregularized encoded model has the largest mean F1 (0.4315); the selected
+L2 model is 0.0012 lower. The paired difference, F1(L2) $-$ F1(unregularized),
+is $-0.0012\pm0.0029$ and changes sign across folds. L2 has slightly higher
+AUROC and the same PR-AUC. We do not claim a significant or uniform advantage;
+L2 is retained because the separate calibration study selected it, it controls
+coefficient magnitude, and full-data F1 is comparable.
+
+The encoded model's paired mean F1 advantage over numeric codes is
+$+0.0293\pm0.0043$ (encoded minus numeric); over ridge it is
+$+0.0043\pm0.0051$, and ridge has lower mean AUROC. These differences are
+descriptive, not significance tests.
+
+\section{Threshold Selection and Final Model}
+The final threshold is $0.21475973018819802$, selected to maximize positive-class
+F1 on an inner split of the 262{,}508-row seed-42 training portion (210{,}006
+fit, 52{,}502 calibration, inner seed 123; inner F1 0.4336) and frozen before
+the all-data fit. Each CV
+fold selects its own threshold (0.1538--0.2427). The regularization study
+instead fits on all 262{,}508 rows and optimizes its own threshold (about
+0.1706, F1 about 0.4374); applying the frozen threshold to those scores gives
+F1 about 0.4255. These are different, non-independent procedures.
+
+The final L2 model is trained on all 328{,}135 labeled rows with the frozen
+configuration and applied to the 109{,}379 test rows. It produces 17{,}310
+positive predictions (15.83\%). Test labels are unavailable, so no test
+performance is reported. The final training loss is 0.2189.
+
+\section{Discussion and Limitations}
+The model is linear and cannot capture non-linear interactions; no resampling
+or class weighting was used. The full-data CV is retrospective because all
+labeled rows informed earlier preprocessing, hyperparameter, and threshold
+choices, and its folds are correlated. The 90-epoch cap and schedule were
+frozen before CV; we do not claim convergence. The L2 experiment measures
+coefficient shrinkage and calibration-partition loss, not dedicated probability
+calibration. Associations are not causal, the threshold is a point estimate,
+and test labels are unavailable.
+
+\section{Conclusion}
+A NumPy-only pipeline combines one-hot encoding, verified preprocessing, plain
+single-sample SGD, an all-weight L2 penalty, and leakage-free fold-level
+threshold selection. Full-data five-fold CV gives $0.4303\pm0.0060$ F1, 0.8622
+AUROC and 0.4188 PR-AUC; the unregularized encoded model is 0.0012 higher, a
+small and mixed difference. The final model produces 17{,}310 positive test
+predictions.
+
+\begin{thebibliography}{1}
+\bibitem{brfss15}
+Centers for Disease Control and Prevention.
+\textit{2015 BRFSS Survey Data and Documentation}.
+\url{https://www.cdc.gov/brfss/annual_data/annual_2015.html}, 2016.
+\end{thebibliography}
+
+\end{document}

@@ -1,0 +1,307 @@
+{
+  "metadata": {
+    "dataset": "BRFSS 2015 labeled training data",
+    "split": "stratified 80/20 training/calibration split of all labeled rows",
+    "split_seed": 42,
+    "val_fraction": 0.2,
+    "fit_rows": 262508,
+    "cal_rows": 65627,
+    "fit_pos": 23180,
+    "fit_neg": 239328,
+    "cal_pos": 5795,
+    "cal_neg": 59832,
+    "candidate_features": 307,
+    "preprocessing": {
+      "n_input_features": 301,
+      "n_numeric": 81,
+      "n_categorical": 220,
+      "n_dummies": 1047,
+      "design_dimension": 1129
+    },
+    "optimizer": {
+      "name": "plain single-sample SGD",
+      "lr": 0.01,
+      "schedule": "inverse",
+      "decay": 0.1,
+      "epochs": 90,
+      "seed": 2027
+    },
+    "lambdas": [
+      0.0,
+      1e-05,
+      0.0001,
+      0.001
+    ],
+    "selection_metric": "positive-class F1 on the calibration partition",
+    "same_as_earlier_development_split": true,
+    "threshold_optimized_on_calibration": true,
+    "provenance_note": "This is the same seed-42 80/20 partition used during earlier development. F1 values use thresholds optimized on this same calibration portion; they describe model selection and regularization behavior, not independent generalization."
+  },
+  "results": [
+    {
+      "lambda": 0.0,
+      "threshold": 0.16944336084458006,
+      "metrics": {
+        "threshold": 0.16944336084458006,
+        "TP": 3105,
+        "FP": 5317,
+        "TN": 54515,
+        "FN": 2690,
+        "accuracy": 0.8779922897587883,
+        "precision": 0.36867727380669674,
+        "recall": 0.5358067299396031,
+        "f1": 0.4368010128719139,
+        "specificity": 0.9111345099612248,
+        "balanced_accuracy": 0.723470619950414,
+        "roc_auc": 0.8621587497048104,
+        "pr_auc": 0.42314204146515755
+      },
+      "train_loss": 0.21817590182920005,
+      "penalty": 0.0,
+      "penalized_train_objective": 0.21817590182920005,
+      "calibration_loss": 0.2203663217212725,
+      "train_calibration_gap": 0.0021904198920724427,
+      "weight_l2": 10.537142393751074,
+      "weight_max_abs": 7.755020003454485,
+      "grad_inf": 0.015756316478526083,
+      "history": [
+        {
+          "epoch": 15,
+          "eta": 0.004166666666666666,
+          "data_loss": 0.22791731979079208,
+          "penalized_loss": 0.22791731979079208
+        },
+        {
+          "epoch": 30,
+          "eta": 0.002564102564102564,
+          "data_loss": 0.23939356872039258,
+          "penalized_loss": 0.23939356872039258
+        },
+        {
+          "epoch": 45,
+          "eta": 0.0018518518518518517,
+          "data_loss": 0.22141681521842685,
+          "penalized_loss": 0.22141681521842685
+        },
+        {
+          "epoch": 60,
+          "eta": 0.0014492753623188406,
+          "data_loss": 0.21807116813719457,
+          "penalized_loss": 0.21807116813719457
+        },
+        {
+          "epoch": 75,
+          "eta": 0.0011904761904761904,
+          "data_loss": 0.21871962188312483,
+          "penalized_loss": 0.21871962188312483
+        },
+        {
+          "epoch": 90,
+          "eta": 0.00101010101010101,
+          "data_loss": 0.21817590182920005,
+          "penalized_loss": 0.21817590182920005
+        }
+      ],
+      "runtime_seconds": 137.365172624588
+    },
+    {
+      "lambda": 1e-05,
+      "threshold": 0.17056890112148465,
+      "metrics": {
+        "threshold": 0.17056890112148465,
+        "TP": 3099,
+        "FP": 5276,
+        "TN": 54556,
+        "FN": 2696,
+        "accuracy": 0.8785256068386488,
+        "precision": 0.37002985074626865,
+        "recall": 0.5347713546160483,
+        "f1": 0.4374029640084686,
+        "specificity": 0.9118197620002674,
+        "balanced_accuracy": 0.7232955583081578,
+        "roc_auc": 0.8624735713838265,
+        "pr_auc": 0.4231735936099665
+      },
+      "train_loss": 0.21839506810435175,
+      "penalty": 0.0005872780056191489,
+      "penalized_train_objective": 0.2189823461099709,
+      "calibration_loss": 0.22021046608988123,
+      "train_calibration_gap": 0.0018153979855294877,
+      "weight_l2": 7.663406589886437,
+      "weight_max_abs": 5.552564467204025,
+      "grad_inf": 0.01571217933018043,
+      "history": [
+        {
+          "epoch": 15,
+          "eta": 0.004166666666666666,
+          "data_loss": 0.22810986972095804,
+          "penalized_loss": 0.22868339727295983
+        },
+        {
+          "epoch": 30,
+          "eta": 0.002564102564102564,
+          "data_loss": 0.23967466447792812,
+          "penalized_loss": 0.2402621853212557
+        },
+        {
+          "epoch": 45,
+          "eta": 0.0018518518518518517,
+          "data_loss": 0.22172098428378406,
+          "penalized_loss": 0.2223105200319807
+        },
+        {
+          "epoch": 60,
+          "eta": 0.0014492753623188406,
+          "data_loss": 0.21838484491578714,
+          "penalized_loss": 0.21897280204988503
+        },
+        {
+          "epoch": 75,
+          "eta": 0.0011904761904761904,
+          "data_loss": 0.2192243819738072,
+          "penalized_loss": 0.21981274059798026
+        },
+        {
+          "epoch": 90,
+          "eta": 0.00101010101010101,
+          "data_loss": 0.21839506810435175,
+          "penalized_loss": 0.2189823461099709
+        }
+      ],
+      "runtime_seconds": 189.07410383224487
+    },
+    {
+      "lambda": 0.0001,
+      "threshold": 0.17776969093946948,
+      "metrics": {
+        "threshold": 0.17776969093946948,
+        "TP": 3026,
+        "FP": 5060,
+        "TN": 54772,
+        "FN": 2769,
+        "accuracy": 0.8807045880506499,
+        "precision": 0.3742270591145189,
+        "recall": 0.5221742881794651,
+        "f1": 0.4359916432533679,
+        "specificity": 0.9154298703035165,
+        "balanced_accuracy": 0.7188020792414909,
+        "roc_auc": 0.86230999285777,
+        "pr_auc": 0.4157215375473651
+      },
+      "train_loss": 0.21959923874067558,
+      "penalty": 0.0017468383422359055,
+      "penalized_train_objective": 0.22134607708291149,
+      "calibration_loss": 0.22068628276291502,
+      "train_calibration_gap": 0.0010870440222394417,
+      "weight_l2": 4.179519520514177,
+      "weight_max_abs": 2.830488844480681,
+      "grad_inf": 0.015429166538894208,
+      "history": [
+        {
+          "epoch": 15,
+          "eta": 0.004166666666666666,
+          "data_loss": 0.2294308059345008,
+          "penalized_loss": 0.23143873521408656
+        },
+        {
+          "epoch": 30,
+          "eta": 0.002564102564102564,
+          "data_loss": 0.24118139830627935,
+          "penalized_loss": 0.2430428560593616
+        },
+        {
+          "epoch": 45,
+          "eta": 0.0018518518518518517,
+          "data_loss": 0.2232810969130739,
+          "penalized_loss": 0.2250867586171183
+        },
+        {
+          "epoch": 60,
+          "eta": 0.0014492753623188406,
+          "data_loss": 0.22021928780707029,
+          "penalized_loss": 0.22199052685167792
+        },
+        {
+          "epoch": 75,
+          "eta": 0.0011904761904761904,
+          "data_loss": 0.22108068129273573,
+          "penalized_loss": 0.22284655723663507
+        },
+        {
+          "epoch": 90,
+          "eta": 0.00101010101010101,
+          "data_loss": 0.21959923874067558,
+          "penalized_loss": 0.22134607708291149
+        }
+      ],
+      "runtime_seconds": 186.2969832420349
+    },
+    {
+      "lambda": 0.001,
+      "threshold": 0.15186838920415646,
+      "metrics": {
+        "threshold": 0.15186838920415646,
+        "TP": 3344,
+        "FP": 6471,
+        "TN": 53361,
+        "FN": 2451,
+        "accuracy": 0.8640498575281516,
+        "precision": 0.34070300560366784,
+        "recall": 0.5770491803278689,
+        "f1": 0.4284433055733504,
+        "specificity": 0.8918471720818292,
+        "balanced_accuracy": 0.734448176204849,
+        "roc_auc": 0.858091003962663,
+        "pr_auc": 0.3896761926627763
+      },
+      "train_loss": 0.22331596766099068,
+      "penalty": 0.004243665411013573,
+      "penalized_train_objective": 0.22755963307200425,
+      "calibration_loss": 0.2239402659202313,
+      "train_calibration_gap": 0.0006242982592406243,
+      "weight_l2": 2.0600158763984258,
+      "weight_max_abs": 0.7156695932155336,
+      "grad_inf": 0.015391977402201197,
+      "history": [
+        {
+          "epoch": 15,
+          "eta": 0.004166666666666666,
+          "data_loss": 0.2334218964070479,
+          "penalized_loss": 0.23869665584659305
+        },
+        {
+          "epoch": 30,
+          "eta": 0.002564102564102564,
+          "data_loss": 0.2445192033540551,
+          "penalized_loss": 0.2491599014730819
+        },
+        {
+          "epoch": 45,
+          "eta": 0.0018518518518518517,
+          "data_loss": 0.22695127879523933,
+          "penalized_loss": 0.23140734960046075
+        },
+        {
+          "epoch": 60,
+          "eta": 0.0014492753623188406,
+          "data_loss": 0.2245180244969946,
+          "penalized_loss": 0.22881597487340197
+        },
+        {
+          "epoch": 75,
+          "eta": 0.0011904761904761904,
+          "data_loss": 0.224796421649959,
+          "penalized_loss": 0.22912242350091427
+        },
+        {
+          "epoch": 90,
+          "eta": 0.00101010101010101,
+          "data_loss": 0.22331596766099068,
+          "penalized_loss": 0.22755963307200425
+        }
+      ],
+      "runtime_seconds": 191.32794094085693
+    }
+  ],
+  "best_lambda_by_calibration_f1": 1e-05
+}

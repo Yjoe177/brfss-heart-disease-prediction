@@ -1,0 +1,1979 @@
+{
+  "metadata": {
+    "dataset": "all 328,135 labeled BRFSS training examples",
+    "n_rows": 328135,
+    "positives": 28975,
+    "negatives": 299160,
+    "n_folds": 5,
+    "fold_seed": 2028,
+    "protocol": "stratified five-fold CV; nested inner 80/20 calibration split per fold",
+    "evaluation_note": "retrospective evaluation of a frozen procedure; folds are correlated and the labels participated in earlier development",
+    "models": [
+      "majority",
+      "ridge",
+      "logistic_numeric",
+      "logistic_encoded",
+      "reg_logistic_encoded"
+    ],
+    "optimizer": {
+      "name": "plain single-sample SGD",
+      "lr": 0.01,
+      "schedule": "inverse",
+      "decay": 0.1,
+      "epochs": 90,
+      "seed": 2027
+    },
+    "lambda_l2": 1e-05,
+    "ridge_lambda": 0.0001,
+    "ridge_objective": "0.5 * mean((X @ w - y)**2) + ridge_lambda * sum(w**2)",
+    "ridge_bookkeeping_correction": "Recomputed from saved train_mse and weight_l2; no retraining; see ridge_objective_correction.json."
+  },
+  "folds": [
+    {
+      "fold": 0,
+      "config_hash": "d8cba7f37b6e0b6087664b07695005fb",
+      "inner_split_seed": 120280,
+      "counts": {
+        "eval_rows": 65627,
+        "eval_pos": 5795,
+        "eval_neg": 59832,
+        "train_rows": 262508,
+        "train_pos": 23180,
+        "train_neg": 239328
+      },
+      "inner_counts": {
+        "fit_rows": 210006,
+        "cal_rows": 52502,
+        "fit_pos": 18544,
+        "fit_neg": 191462,
+        "cal_pos": 4636,
+        "cal_neg": 47866
+      },
+      "thresholds": {
+        "ridge": 0.21899626206837852,
+        "logistic_numeric": 0.16448206637520602,
+        "logistic_encoded": 0.20867880768379943,
+        "reg_logistic_encoded": 0.2125859625199455
+      },
+      "models": {
+        "majority": {
+          "model": "majority",
+          "threshold": null,
+          "inner_calibration_f1": 0.0,
+          "metrics": {
+            "threshold": null,
+            "TP": 0,
+            "FP": 0,
+            "TN": 59832,
+            "FN": 5795,
+            "accuracy": 0.911697929205967,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "specificity": 1.0,
+            "balanced_accuracy": 0.5,
+            "roc_auc": 0.5,
+            "pr_auc": 0.08830207079403295
+          },
+          "preprocessing": {
+            "design_dimension": 1
+          },
+          "optimizer": {
+            "name": "always negative"
+          },
+          "regularization": null,
+          "train_loss": null,
+          "penalized_train_objective": null,
+          "weight_l2": null,
+          "grad_inf": null,
+          "history": [],
+          "runtime_seconds": 0.0
+        },
+        "ridge": {
+          "model": "ridge",
+          "threshold": 0.21899626206837852,
+          "inner_calibration_f1": 0.42595108695652173,
+          "metrics": {
+            "threshold": 0.21899626206837852,
+            "TP": 3134,
+            "FP": 5700,
+            "TN": 54132,
+            "FN": 2661,
+            "accuracy": 0.8725981684367714,
+            "precision": 0.3547656780620331,
+            "recall": 0.5408110440034513,
+            "f1": 0.4284640098434616,
+            "specificity": 0.9047332531087043,
+            "balanced_accuracy": 0.7227721485560779,
+            "roc_auc": 0.858094277436702,
+            "pr_auc": 0.4128378424415632
+          },
+          "preprocessing": {
+            "n_input_features": 301,
+            "n_numeric": 81,
+            "n_categorical": 220,
+            "n_dummies": 1048,
+            "design_dimension": 1130
+          },
+          "optimizer": {
+            "name": "normal equations",
+            "ridge_lambda": 0.0001
+          },
+          "regularization": {
+            "lambda": 0.0001,
+            "penalty": "all weights"
+          },
+          "train_mse": 0.06448500178047671,
+          "penalized_train_objective": 0.03233146767150089,
+          "weight_l2": 0.9432220378179192,
+          "grad_inf": null,
+          "history": [],
+          "runtime_seconds": 1.56083345413208,
+          "half_train_mse": 0.032242500890238356,
+          "ridge_objective_definition": "0.5 * mean((X @ w - y)**2) + ridge_lambda * sum(w**2)"
+        },
+        "logistic_numeric": {
+          "model": "logistic_numeric",
+          "threshold": 0.16448206637520602,
+          "inner_calibration_f1": 0.40348636261176657,
+          "metrics": {
+            "threshold": 0.16448206637520602,
+            "TP": 3427,
+            "FP": 7977,
+            "TN": 51855,
+            "FN": 2368,
+            "accuracy": 0.842366708824112,
+            "precision": 0.30050859347597336,
+            "recall": 0.5913718723037101,
+            "f1": 0.3985115413686843,
+            "specificity": 0.8666766947452869,
+            "balanced_accuracy": 0.7290242835244984,
+            "roc_auc": 0.8412158472829474,
+            "pr_auc": 0.33175631029502617
+          },
+          "preprocessing": {
+            "n_input_features": 301,
+            "n_numeric": 301,
+            "n_categorical": 0,
+            "n_dummies": 0,
+            "design_dimension": 302
+          },
+          "optimizer": {
+            "name": "plain single-sample SGD",
+            "lr": 0.01,
+            "schedule": "inverse",
+            "decay": 0.1,
+            "epochs": 90,
+            "seed": 2027
+          },
+          "regularization": {
+            "lambda": 0.0,
+            "penalty": "all weights"
+          },
+          "train_loss": 0.236146615077389,
+          "penalized_train_objective": 0.236146615077389,
+          "weight_l2": 4.3147925037232255,
+          "grad_inf": 0.015802320536583155,
+          "history": [
+            {
+              "epoch": 15,
+              "eta": 0.004166666666666666,
+              "data_loss": 0.27258707004645716,
+              "penalized_loss": 0.27258707004645716
+            },
+            {
+              "epoch": 30,
+              "eta": 0.002564102564102564,
+              "data_loss": 0.2549921333665613,
+              "penalized_loss": 0.2549921333665613
+            },
+            {
+              "epoch": 45,
+              "eta": 0.0018518518518518517,
+              "data_loss": 0.23667296702251292,
+              "penalized_loss": 0.23667296702251292
+            },
+            {
+              "epoch": 60,
+              "eta": 0.0014492753623188406,
+              "data_loss": 0.23580488834245372,
+              "penalized_loss": 0.23580488834245372
+            },
+            {
+              "epoch": 75,
+              "eta": 0.0011904761904761904,
+              "data_loss": 0.2337641301798922,
+              "penalized_loss": 0.2337641301798922
+            },
+            {
+              "epoch": 90,
+              "eta": 0.00101010101010101,
+              "data_loss": 0.236146615077389,
+              "penalized_loss": 0.236146615077389
+            }
+          ],
+          "runtime_seconds": 105.70252084732056
+        },
+        "logistic_encoded": {
+          "model": "logistic_encoded",
+          "threshold": 0.20867880768379943,
+          "inner_calibration_f1": 0.4341258261093469,
+          "metrics": {
+            "threshold": 0.20867880768379943,
+            "TP": 3711,
+            "FP": 7875,
+            "TN": 51957,
+            "FN": 2084,
+            "accuracy": 0.8482484343334299,
+            "precision": 0.3203003625064733,
+            "recall": 0.6403796376186368,
+            "f1": 0.42701800816984065,
+            "specificity": 0.86838146811071,
+            "balanced_accuracy": 0.7543805528646734,
+            "roc_auc": 0.8627232264144609,
+            "pr_auc": 0.4140279723216833
+          },
+          "preprocessing": {
+            "n_input_features": 301,
+            "n_numeric": 81,
+            "n_categorical": 220,
+            "n_dummies": 1048,
+            "design_dimension": 1130
+          },
+          "optimizer": {
+            "name": "plain single-sample SGD",
+            "lr": 0.01,
+            "schedule": "inverse",
+            "decay": 0.1,
+            "epochs": 90,
+            "seed": 2027
+          },
+          "regularization": {
+            "lambda": 0.0,
+            "penalty": "all weights"
+          },
+          "train_loss": 0.22143525434680442,
+          "penalized_train_objective": 0.22143525434680442,
+          "weight_l2": 10.540600783428914,
+          "grad_inf": 0.024959867969482782,
+          "history": [
+            {
+              "epoch": 15,
+              "eta": 0.004166666666666666,
+              "data_loss": 0.2363450800066614,
+              "penalized_loss": 0.2363450800066614
+            },
+            {
+              "epoch": 30,
+              "eta": 0.002564102564102564,
+              "data_loss": 0.22011651730789675,
+              "penalized_loss": 0.22011651730789675
+            },
+            {
+              "epoch": 45,
+              "eta": 0.0018518518518518517,
+              "data_loss": 0.21779907904138787,
+              "penalized_loss": 0.21779907904138787
+            },
+            {
+              "epoch": 60,
+              "eta": 0.0014492753623188406,
+              "data_loss": 0.2172105764451664,
+              "penalized_loss": 0.2172105764451664
+            },
+            {
+              "epoch": 75,
+              "eta": 0.0011904761904761904,
+              "data_loss": 0.22017081914801223,
+              "penalized_loss": 0.22017081914801223
+            },
+            {
+              "epoch": 90,
+              "eta": 0.00101010101010101,
+              "data_loss": 0.22143525434680442,
+              "penalized_loss": 0.22143525434680442
+            }
+          ],
+          "runtime_seconds": 128.41237950325012
+        },
+        "reg_logistic_encoded": {
+          "model": "reg_logistic_encoded",
+          "threshold": 0.2125859625199455,
+          "inner_calibration_f1": 0.4351145038167939,
+          "metrics": {
+            "threshold": 0.2125859625199455,
+            "TP": 3693,
+            "FP": 7751,
+            "TN": 52081,
+            "FN": 2102,
+            "accuracy": 0.8498636232038642,
+            "precision": 0.3227018524991262,
+            "recall": 0.6372735116479724,
+            "f1": 0.4284471257033471,
+            "specificity": 0.8704539376922048,
+            "balanced_accuracy": 0.7538637246700886,
+            "roc_auc": 0.8629438787535211,
+            "pr_auc": 0.41399368708020057
+          },
+          "preprocessing": {
+            "n_input_features": 301,
+            "n_numeric": 81,
+            "n_categorical": 220,
+            "n_dummies": 1048,
+            "design_dimension": 1130
+          },
+          "optimizer": {
+            "name": "plain single-sample SGD",
+            "lr": 0.01,
+            "schedule": "inverse",
+            "decay": 0.1,
+            "epochs": 90,
+            "seed": 2027
+          },
+          "regularization": {
+            "lambda": 1e-05,
+            "penalty": "all weights"
+          },
+          "train_loss": 0.221710803560953,
+          "penalized_train_objective": 0.22230103773415708,
+          "weight_l2": 7.682669934365765,
+          "grad_inf": 0.02525974975329724,
+          "history": [
+            {
+              "epoch": 15,
+              "eta": 0.004166666666666666,
+              "data_loss": 0.23654460524073098,
+              "penalized_loss": 0.2371154482329364
+            },
+            {
+              "epoch": 30,
+              "eta": 0.002564102564102564,
+              "data_loss": 0.22030754268964092,
+              "penalized_loss": 0.22089380008941334
+            },
+            {
+              "epoch": 45,
+              "eta": 0.0018518518518518517,
+              "data_loss": 0.21837345496284064,
+              "penalized_loss": 0.21896448261815604
+            },
+            {
+              "epoch": 60,
+              "eta": 0.0014492753623188406,
+              "data_loss": 0.21744769322149698,
+              "penalized_loss": 0.21803833955213744
+            },
+            {
+              "epoch": 75,
+              "eta": 0.0011904761904761904,
+              "data_loss": 0.22024891043192713,
+              "penalized_loss": 0.22083795698692316
+            },
+            {
+              "epoch": 90,
+              "eta": 0.00101010101010101,
+              "data_loss": 0.221710803560953,
+              "penalized_loss": 0.22230103773415708
+            }
+          ],
+          "runtime_seconds": 171.18357872962952
+        }
+      }
+    },
+    {
+      "fold": 1,
+      "config_hash": "d8cba7f37b6e0b6087664b07695005fb",
+      "inner_split_seed": 120281,
+      "counts": {
+        "eval_rows": 65627,
+        "eval_pos": 5795,
+        "eval_neg": 59832,
+        "train_rows": 262508,
+        "train_pos": 23180,
+        "train_neg": 239328
+      },
+      "inner_counts": {
+        "fit_rows": 210006,
+        "cal_rows": 52502,
+        "fit_pos": 18544,
+        "fit_neg": 191462,
+        "cal_pos": 4636,
+        "cal_neg": 47866
+      },
+      "thresholds": {
+        "ridge": 0.21521616957430273,
+        "logistic_numeric": 0.19033496367679026,
+        "logistic_encoded": 0.18874081760980588,
+        "reg_logistic_encoded": 0.18867753504798906
+      },
+      "models": {
+        "majority": {
+          "model": "majority",
+          "threshold": null,
+          "inner_calibration_f1": 0.0,
+          "metrics": {
+            "threshold": null,
+            "TP": 0,
+            "FP": 0,
+            "TN": 59832,
+            "FN": 5795,
+            "accuracy": 0.911697929205967,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "specificity": 1.0,
+            "balanced_accuracy": 0.5,
+            "roc_auc": 0.5,
+            "pr_auc": 0.08830207079403295
+          },
+          "preprocessing": {
+            "design_dimension": 1
+          },
+          "optimizer": {
+            "name": "always negative"
+          },
+          "regularization": null,
+          "train_loss": null,
+          "penalized_train_objective": null,
+          "weight_l2": null,
+          "grad_inf": null,
+          "history": [],
+          "runtime_seconds": 0.0
+        },
+        "ridge": {
+          "model": "ridge",
+          "threshold": 0.21521616957430273,
+          "inner_calibration_f1": 0.4312541918175721,
+          "metrics": {
+            "threshold": 0.21521616957430273,
+            "TP": 3215,
+            "FP": 5919,
+            "TN": 53913,
+            "FN": 2580,
+            "accuracy": 0.8704953753790361,
+            "precision": 0.35198160718195753,
+            "recall": 0.5547886108714409,
+            "f1": 0.43070533860271953,
+            "specificity": 0.9010730044123546,
+            "balanced_accuracy": 0.7279308076418978,
+            "roc_auc": 0.8600097788908165,
+            "pr_auc": 0.4188393311974398
+          },
+          "preprocessing": {
+            "n_input_features": 301,
+            "n_numeric": 82,
+            "n_categorical": 219,
+            "n_dummies": 1027,
+            "design_dimension": 1110
+          },
+          "optimizer": {
+            "name": "normal equations",
+            "ridge_lambda": 0.0001
+          },
+          "regularization": {
+            "lambda": 0.0001,
+            "penalty": "all weights"
+          },
+          "train_mse": 0.06454051986763108,
+          "penalized_train_objective": 0.032358805989251414,
+          "weight_l2": 0.9409891361534217,
+          "grad_inf": null,
+          "history": [],
+          "runtime_seconds": 1.56654691696167,
+          "half_train_mse": 0.03227025993381554,
+          "ridge_objective_definition": "0.5 * mean((X @ w - y)**2) + ridge_lambda * sum(w**2)"
+        },
+        "logistic_numeric": {
+          "model": "logistic_numeric",
+          "threshold": 0.19033496367679026,
+          "inner_calibration_f1": 0.40850650925851056,
+          "metrics": {
+            "threshold": 0.19033496367679026,
+            "TP": 3234,
+            "FP": 6831,
+            "TN": 53001,
+            "FN": 2561,
+            "accuracy": 0.8568881710271687,
+            "precision": 0.32131147540983607,
+            "recall": 0.5580672993960311,
+            "f1": 0.40781841109709965,
+            "specificity": 0.8858303249097473,
+            "balanced_accuracy": 0.7219488121528892,
+            "roc_auc": 0.8431611272564041,
+            "pr_auc": 0.36511130199282127
+          },
+          "preprocessing": {
+            "n_input_features": 301,
+            "n_numeric": 301,
+            "n_categorical": 0,
+            "n_dummies": 0,
+            "design_dimension": 302
+          },
+          "optimizer": {
+            "name": "plain single-sample SGD",
+            "lr": 0.01,
+            "schedule": "inverse",
+            "decay": 0.1,
+            "epochs": 90,
+            "seed": 2027
+          },
+          "regularization": {
+            "lambda": 0.0,
+            "penalty": "all weights"
+          },
+          "train_loss": 0.23312007801908985,
+          "penalized_train_objective": 0.23312007801908985,
+          "weight_l2": 4.293550312617254,
+          "grad_inf": 0.010743267190976652,
+          "history": [
+            {
+              "epoch": 15,
+              "eta": 0.004166666666666666,
+              "data_loss": 0.2702976316274389,
+              "penalized_loss": 0.2702976316274389
+            },
+            {
+              "epoch": 30,
+              "eta": 0.002564102564102564,
+              "data_loss": 0.25025685211999815,
+              "penalized_loss": 0.25025685211999815
+            },
+            {
+              "epoch": 45,
+              "eta": 0.0018518518518518517,
+              "data_loss": 0.2432860449192989,
+              "penalized_loss": 0.2432860449192989
+            },
+            {
+              "epoch": 60,
+              "eta": 0.0014492753623188406,
+              "data_loss": 0.23676169993965412,
+              "penalized_loss": 0.23676169993965412
+            },
+            {
+              "epoch": 75,
+              "eta": 0.0011904761904761904,
+              "data_loss": 0.23261734348559085,
+              "penalized_loss": 0.23261734348559085
+            },
+            {
+              "epoch": 90,
+              "eta": 0.00101010101010101,
+              "data_loss": 0.23312007801908985,
+              "penalized_loss": 0.23312007801908985
+            }
+          ],
+          "runtime_seconds": 110.02064490318298
+        },
+        "logistic_encoded": {
+          "model": "logistic_encoded",
+          "threshold": 0.18874081760980588,
+          "inner_calibration_f1": 0.44216024938916504,
+          "metrics": {
+            "threshold": 0.18874081760980588,
+            "TP": 3244,
+            "FP": 5909,
+            "TN": 53923,
+            "FN": 2551,
+            "accuracy": 0.8710896429823091,
+            "precision": 0.35441931607123345,
+            "recall": 0.5597929249352891,
+            "f1": 0.434037998394434,
+            "specificity": 0.9012401390560235,
+            "balanced_accuracy": 0.7305165319956564,
+            "roc_auc": 0.8636306334180919,
+            "pr_auc": 0.42354858345470586
+          },
+          "preprocessing": {
+            "n_input_features": 301,
+            "n_numeric": 82,
+            "n_categorical": 219,
+            "n_dummies": 1027,
+            "design_dimension": 1110
+          },
+          "optimizer": {
+            "name": "plain single-sample SGD",
+            "lr": 0.01,
+            "schedule": "inverse",
+            "decay": 0.1,
+            "epochs": 90,
+            "seed": 2027
+          },
+          "regularization": {
+            "lambda": 0.0,
+            "penalty": "all weights"
+          },
+          "train_loss": 0.21650795355492977,
+          "penalized_train_objective": 0.21650795355492977,
+          "weight_l2": 10.682493604068354,
+          "grad_inf": 0.00840587056347339,
+          "history": [
+            {
+              "epoch": 15,
+              "eta": 0.004166666666666666,
+              "data_loss": 0.24033608877709245,
+              "penalized_loss": 0.24033608877709245
+            },
+            {
+              "epoch": 30,
+              "eta": 0.002564102564102564,
+              "data_loss": 0.22316914286596248,
+              "penalized_loss": 0.22316914286596248
+            },
+            {
+              "epoch": 45,
+              "eta": 0.0018518518518518517,
+              "data_loss": 0.2233388264787215,
+              "penalized_loss": 0.2233388264787215
+            },
+            {
+              "epoch": 60,
+              "eta": 0.0014492753623188406,
+              "data_loss": 0.21822265024095014,
+              "penalized_loss": 0.21822265024095014
+            },
+            {
+              "epoch": 75,
+              "eta": 0.0011904761904761904,
+              "data_loss": 0.21792106842036832,
+              "penalized_loss": 0.21792106842036832
+            },
+            {
+              "epoch": 90,
+              "eta": 0.00101010101010101,
+              "data_loss": 0.21650795355492977,
+              "penalized_loss": 0.21650795355492977
+            }
+          ],
+          "runtime_seconds": 128.67185974121094
+        },
+        "reg_logistic_encoded": {
+          "model": "reg_logistic_encoded",
+          "threshold": 0.18867753504798906,
+          "inner_calibration_f1": 0.4427083333333333,
+          "metrics": {
+            "threshold": 0.18867753504798906,
+            "TP": 3238,
+            "FP": 5837,
+            "TN": 53995,
+            "FN": 2557,
+            "accuracy": 0.8720953266186173,
+            "precision": 0.35680440771349864,
+            "recall": 0.5587575496117343,
+            "f1": 0.43550773369199736,
+            "specificity": 0.9024435084904399,
+            "balanced_accuracy": 0.7306005290510871,
+            "roc_auc": 0.8641225053387909,
+            "pr_auc": 0.4240238093023325
+          },
+          "preprocessing": {
+            "n_input_features": 301,
+            "n_numeric": 82,
+            "n_categorical": 219,
+            "n_dummies": 1027,
+            "design_dimension": 1110
+          },
+          "optimizer": {
+            "name": "plain single-sample SGD",
+            "lr": 0.01,
+            "schedule": "inverse",
+            "decay": 0.1,
+            "epochs": 90,
+            "seed": 2027
+          },
+          "regularization": {
+            "lambda": 1e-05,
+            "penalty": "all weights"
+          },
+          "train_loss": 0.2167198465939223,
+          "penalized_train_objective": 0.21732559260928222,
+          "weight_l2": 7.782968683991584,
+          "grad_inf": 0.008096943206123272,
+          "history": [
+            {
+              "epoch": 15,
+              "eta": 0.004166666666666666,
+              "data_loss": 0.2404746286577632,
+              "penalized_loss": 0.24106870242410425
+            },
+            {
+              "epoch": 30,
+              "eta": 0.002564102564102564,
+              "data_loss": 0.2233056872679688,
+              "penalized_loss": 0.2239138557399125
+            },
+            {
+              "epoch": 45,
+              "eta": 0.0018518518518518517,
+              "data_loss": 0.22358307998708848,
+              "penalized_loss": 0.22419103766923196
+            },
+            {
+              "epoch": 60,
+              "eta": 0.0014492753623188406,
+              "data_loss": 0.21852947804959472,
+              "penalized_loss": 0.21913558175608536
+            },
+            {
+              "epoch": 75,
+              "eta": 0.0011904761904761904,
+              "data_loss": 0.21814593752320757,
+              "penalized_loss": 0.2187523468517483
+            },
+            {
+              "epoch": 90,
+              "eta": 0.00101010101010101,
+              "data_loss": 0.2167198465939223,
+              "penalized_loss": 0.21732559260928222
+            }
+          ],
+          "runtime_seconds": 162.3677637577057
+        }
+      }
+    },
+    {
+      "fold": 2,
+      "config_hash": "d8cba7f37b6e0b6087664b07695005fb",
+      "inner_split_seed": 120282,
+      "counts": {
+        "eval_rows": 65627,
+        "eval_pos": 5795,
+        "eval_neg": 59832,
+        "train_rows": 262508,
+        "train_pos": 23180,
+        "train_neg": 239328
+      },
+      "inner_counts": {
+        "fit_rows": 210006,
+        "cal_rows": 52502,
+        "fit_pos": 18544,
+        "fit_neg": 191462,
+        "cal_pos": 4636,
+        "cal_neg": 47866
+      },
+      "thresholds": {
+        "ridge": 0.24266019030073355,
+        "logistic_numeric": 0.1880579559573912,
+        "logistic_encoded": 0.17175904848662493,
+        "reg_logistic_encoded": 0.15384472525633358
+      },
+      "models": {
+        "majority": {
+          "model": "majority",
+          "threshold": null,
+          "inner_calibration_f1": 0.0,
+          "metrics": {
+            "threshold": null,
+            "TP": 0,
+            "FP": 0,
+            "TN": 59832,
+            "FN": 5795,
+            "accuracy": 0.911697929205967,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "specificity": 1.0,
+            "balanced_accuracy": 0.5,
+            "roc_auc": 0.5,
+            "pr_auc": 0.08830207079403295
+          },
+          "preprocessing": {
+            "design_dimension": 1
+          },
+          "optimizer": {
+            "name": "always negative"
+          },
+          "regularization": null,
+          "train_loss": null,
+          "penalized_train_objective": null,
+          "weight_l2": null,
+          "grad_inf": null,
+          "history": [],
+          "runtime_seconds": 0.0
+        },
+        "ridge": {
+          "model": "ridge",
+          "threshold": 0.24266019030073355,
+          "inner_calibration_f1": 0.428296067848882,
+          "metrics": {
+            "threshold": 0.24266019030073355,
+            "TP": 2746,
+            "FP": 4335,
+            "TN": 55497,
+            "FN": 3049,
+            "accuracy": 0.8874853337803038,
+            "precision": 0.38779833356870497,
+            "recall": 0.4738567730802416,
+            "f1": 0.42652997825411615,
+            "specificity": 0.9275471319695147,
+            "balanced_accuracy": 0.7007019525248781,
+            "roc_auc": 0.8623718658432856,
+            "pr_auc": 0.4269466704426867
+          },
+          "preprocessing": {
+            "n_input_features": 301,
+            "n_numeric": 81,
+            "n_categorical": 220,
+            "n_dummies": 1047,
+            "design_dimension": 1129
+          },
+          "optimizer": {
+            "name": "normal equations",
+            "ridge_lambda": 0.0001
+          },
+          "regularization": {
+            "lambda": 0.0001,
+            "penalty": "all weights"
+          },
+          "train_mse": 0.0646261025567627,
+          "penalized_train_objective": 0.03240042427771368,
+          "weight_l2": 0.9347352530654583,
+          "grad_inf": null,
+          "history": [],
+          "runtime_seconds": 1.473736047744751,
+          "half_train_mse": 0.03231305127838135,
+          "ridge_objective_definition": "0.5 * mean((X @ w - y)**2) + ridge_lambda * sum(w**2)"
+        },
+        "logistic_numeric": {
+          "model": "logistic_numeric",
+          "threshold": 0.1880579559573912,
+          "inner_calibration_f1": 0.40790552730851243,
+          "metrics": {
+            "threshold": 0.1880579559573912,
+            "TP": 3025,
+            "FP": 6182,
+            "TN": 53650,
+            "FN": 2770,
+            "accuracy": 0.8635927286025569,
+            "precision": 0.32855436081242534,
+            "recall": 0.5220017256255393,
+            "f1": 0.40327956272497,
+            "specificity": 0.8966773632838615,
+            "balanced_accuracy": 0.7093395444547004,
+            "roc_auc": 0.8453172420309222,
+            "pr_auc": 0.3656133224882209
+          },
+          "preprocessing": {
+            "n_input_features": 301,
+            "n_numeric": 301,
+            "n_categorical": 0,
+            "n_dummies": 0,
+            "design_dimension": 302
+          },
+          "optimizer": {
+            "name": "plain single-sample SGD",
+            "lr": 0.01,
+            "schedule": "inverse",
+            "decay": 0.1,
+            "epochs": 90,
+            "seed": 2027
+          },
+          "regularization": {
+            "lambda": 0.0,
+            "penalty": "all weights"
+          },
+          "train_loss": 0.23131387710472884,
+          "penalized_train_objective": 0.23131387710472884,
+          "weight_l2": 4.4663512333183375,
+          "grad_inf": 0.013316078870599235,
+          "history": [
+            {
+              "epoch": 15,
+              "eta": 0.004166666666666666,
+              "data_loss": 0.27840909270580466,
+              "penalized_loss": 0.27840909270580466
+            },
+            {
+              "epoch": 30,
+              "eta": 0.002564102564102564,
+              "data_loss": 0.25028995612460714,
+              "penalized_loss": 0.25028995612460714
+            },
+            {
+              "epoch": 45,
+              "eta": 0.0018518518518518517,
+              "data_loss": 0.24152556174606454,
+              "penalized_loss": 0.24152556174606454
+            },
+            {
+              "epoch": 60,
+              "eta": 0.0014492753623188406,
+              "data_loss": 0.2368123457787133,
+              "penalized_loss": 0.2368123457787133
+            },
+            {
+              "epoch": 75,
+              "eta": 0.0011904761904761904,
+              "data_loss": 0.23613153612611262,
+              "penalized_loss": 0.23613153612611262
+            },
+            {
+              "epoch": 90,
+              "eta": 0.00101010101010101,
+              "data_loss": 0.23131387710472884,
+              "penalized_loss": 0.23131387710472884
+            }
+          ],
+          "runtime_seconds": 109.43829298019409
+        },
+        "logistic_encoded": {
+          "model": "logistic_encoded",
+          "threshold": 0.17175904848662493,
+          "inner_calibration_f1": 0.4351908197861427,
+          "metrics": {
+            "threshold": 0.17175904848662493,
+            "TP": 3207,
+            "FP": 5608,
+            "TN": 54224,
+            "FN": 2588,
+            "accuracy": 0.875112377527542,
+            "precision": 0.3638116846284742,
+            "recall": 0.5534081104400345,
+            "f1": 0.4390143737166325,
+            "specificity": 0.9062708918304586,
+            "balanced_accuracy": 0.7298395011352465,
+            "roc_auc": 0.8644450391495959,
+            "pr_auc": 0.4273144583910068
+          },
+          "preprocessing": {
+            "n_input_features": 301,
+            "n_numeric": 81,
+            "n_categorical": 220,
+            "n_dummies": 1047,
+            "design_dimension": 1129
+          },
+          "optimizer": {
+            "name": "plain single-sample SGD",
+            "lr": 0.01,
+            "schedule": "inverse",
+            "decay": 0.1,
+            "epochs": 90,
+            "seed": 2027
+          },
+          "regularization": {
+            "lambda": 0.0,
+            "penalty": "all weights"
+          },
+          "train_loss": 0.21683789180892385,
+          "penalized_train_objective": 0.21683789180892385,
+          "weight_l2": 10.515663325775698,
+          "grad_inf": 0.010340539495302125,
+          "history": [
+            {
+              "epoch": 15,
+              "eta": 0.004166666666666666,
+              "data_loss": 0.22543646371680826,
+              "penalized_loss": 0.22543646371680826
+            },
+            {
+              "epoch": 30,
+              "eta": 0.002564102564102564,
+              "data_loss": 0.22082900368186562,
+              "penalized_loss": 0.22082900368186562
+            },
+            {
+              "epoch": 45,
+              "eta": 0.0018518518518518517,
+              "data_loss": 0.22265282344614543,
+              "penalized_loss": 0.22265282344614543
+            },
+            {
+              "epoch": 60,
+              "eta": 0.0014492753623188406,
+              "data_loss": 0.2225629636118637,
+              "penalized_loss": 0.2225629636118637
+            },
+            {
+              "epoch": 75,
+              "eta": 0.0011904761904761904,
+              "data_loss": 0.22321400161756677,
+              "penalized_loss": 0.22321400161756677
+            },
+            {
+              "epoch": 90,
+              "eta": 0.00101010101010101,
+              "data_loss": 0.21683789180892385,
+              "penalized_loss": 0.21683789180892385
+            }
+          ],
+          "runtime_seconds": 128.88462662696838
+        },
+        "reg_logistic_encoded": {
+          "model": "reg_logistic_encoded",
+          "threshold": 0.15384472525633358,
+          "inner_calibration_f1": 0.4352272727272728,
+          "metrics": {
+            "threshold": 0.15384472525633358,
+            "TP": 3422,
+            "FP": 6493,
+            "TN": 53339,
+            "FN": 2373,
+            "accuracy": 0.8649031648559282,
+            "precision": 0.34513363590519414,
+            "recall": 0.5905090595340811,
+            "f1": 0.4356460852959898,
+            "specificity": 0.8914794758657575,
+            "balanced_accuracy": 0.7409942676999193,
+            "roc_auc": 0.8647264165951694,
+            "pr_auc": 0.4273168998325979
+          },
+          "preprocessing": {
+            "n_input_features": 301,
+            "n_numeric": 81,
+            "n_categorical": 220,
+            "n_dummies": 1047,
+            "design_dimension": 1129
+          },
+          "optimizer": {
+            "name": "plain single-sample SGD",
+            "lr": 0.01,
+            "schedule": "inverse",
+            "decay": 0.1,
+            "epochs": 90,
+            "seed": 2027
+          },
+          "regularization": {
+            "lambda": 1e-05,
+            "penalty": "all weights"
+          },
+          "train_loss": 0.21710965346185568,
+          "penalized_train_objective": 0.21769723660977813,
+          "weight_l2": 7.665397236428483,
+          "grad_inf": 0.010341775467410436,
+          "history": [
+            {
+              "epoch": 15,
+              "eta": 0.004166666666666666,
+              "data_loss": 0.2257563752545682,
+              "penalized_loss": 0.22633606153763702
+            },
+            {
+              "epoch": 30,
+              "eta": 0.002564102564102564,
+              "data_loss": 0.22098546017069598,
+              "penalized_loss": 0.22157809180963461
+            },
+            {
+              "epoch": 45,
+              "eta": 0.0018518518518518517,
+              "data_loss": 0.22286720396400106,
+              "penalized_loss": 0.22345653363312643
+            },
+            {
+              "epoch": 60,
+              "eta": 0.0014492753623188406,
+              "data_loss": 0.22278464163275805,
+              "penalized_loss": 0.22337408009955878
+            },
+            {
+              "epoch": 75,
+              "eta": 0.0011904761904761904,
+              "data_loss": 0.22331465623629354,
+              "penalized_loss": 0.22390226583407705
+            },
+            {
+              "epoch": 90,
+              "eta": 0.00101010101010101,
+              "data_loss": 0.21710965346185568,
+              "penalized_loss": 0.21769723660977813
+            }
+          ],
+          "runtime_seconds": 172.50016164779663
+        }
+      }
+    },
+    {
+      "fold": 3,
+      "config_hash": "d8cba7f37b6e0b6087664b07695005fb",
+      "inner_split_seed": 120283,
+      "counts": {
+        "eval_rows": 65627,
+        "eval_pos": 5795,
+        "eval_neg": 59832,
+        "train_rows": 262508,
+        "train_pos": 23180,
+        "train_neg": 239328
+      },
+      "inner_counts": {
+        "fit_rows": 210006,
+        "cal_rows": 52502,
+        "fit_pos": 18544,
+        "fit_neg": 191462,
+        "cal_pos": 4636,
+        "cal_neg": 47866
+      },
+      "thresholds": {
+        "ridge": 0.2099321161289779,
+        "logistic_numeric": 0.19666314511229316,
+        "logistic_encoded": 0.23332578020293449,
+        "reg_logistic_encoded": 0.23983277865168118
+      },
+      "models": {
+        "majority": {
+          "model": "majority",
+          "threshold": null,
+          "inner_calibration_f1": 0.0,
+          "metrics": {
+            "threshold": null,
+            "TP": 0,
+            "FP": 0,
+            "TN": 59832,
+            "FN": 5795,
+            "accuracy": 0.911697929205967,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "specificity": 1.0,
+            "balanced_accuracy": 0.5,
+            "roc_auc": 0.5,
+            "pr_auc": 0.08830207079403295
+          },
+          "preprocessing": {
+            "design_dimension": 1
+          },
+          "optimizer": {
+            "name": "always negative"
+          },
+          "regularization": null,
+          "train_loss": null,
+          "penalized_train_objective": null,
+          "weight_l2": null,
+          "grad_inf": null,
+          "history": [],
+          "runtime_seconds": 0.0
+        },
+        "ridge": {
+          "model": "ridge",
+          "threshold": 0.2099321161289779,
+          "inner_calibration_f1": 0.4337091597399391,
+          "metrics": {
+            "threshold": 0.2099321161289779,
+            "TP": 3310,
+            "FP": 6401,
+            "TN": 53431,
+            "FN": 2485,
+            "accuracy": 0.8645984122388651,
+            "precision": 0.3408505818144372,
+            "recall": 0.5711820534943917,
+            "f1": 0.42693151038307753,
+            "specificity": 0.8930171145875117,
+            "balanced_accuracy": 0.7320995840409517,
+            "roc_auc": 0.8559602030926744,
+            "pr_auc": 0.41278644164043066
+          },
+          "preprocessing": {
+            "n_input_features": 301,
+            "n_numeric": 81,
+            "n_categorical": 220,
+            "n_dummies": 1051,
+            "design_dimension": 1133
+          },
+          "optimizer": {
+            "name": "normal equations",
+            "ridge_lambda": 0.0001
+          },
+          "regularization": {
+            "lambda": 0.0001,
+            "penalty": "all weights"
+          },
+          "train_mse": 0.06444905954794149,
+          "penalized_train_objective": 0.03231305899261915,
+          "weight_l2": 0.9408996686597972,
+          "grad_inf": null,
+          "history": [],
+          "runtime_seconds": 1.492553472518921,
+          "half_train_mse": 0.03222452977397074,
+          "ridge_objective_definition": "0.5 * mean((X @ w - y)**2) + ridge_lambda * sum(w**2)"
+        },
+        "logistic_numeric": {
+          "model": "logistic_numeric",
+          "threshold": 0.19666314511229316,
+          "inner_calibration_f1": 0.4047898174510132,
+          "metrics": {
+            "threshold": 0.19666314511229316,
+            "TP": 2879,
+            "FP": 5714,
+            "TN": 54118,
+            "FN": 2916,
+            "accuracy": 0.8684992457372728,
+            "precision": 0.3350401489584546,
+            "recall": 0.49680759275237274,
+            "f1": 0.400194606616625,
+            "specificity": 0.9044992646075679,
+            "balanced_accuracy": 0.7006534286799704,
+            "roc_auc": 0.8393611545747708,
+            "pr_auc": 0.34832953444912507
+          },
+          "preprocessing": {
+            "n_input_features": 301,
+            "n_numeric": 301,
+            "n_categorical": 0,
+            "n_dummies": 0,
+            "design_dimension": 302
+          },
+          "optimizer": {
+            "name": "plain single-sample SGD",
+            "lr": 0.01,
+            "schedule": "inverse",
+            "decay": 0.1,
+            "epochs": 90,
+            "seed": 2027
+          },
+          "regularization": {
+            "lambda": 0.0,
+            "penalty": "all weights"
+          },
+          "train_loss": 0.231484470121271,
+          "penalized_train_objective": 0.231484470121271,
+          "weight_l2": 4.396319422817706,
+          "grad_inf": 0.010284980251841274,
+          "history": [
+            {
+              "epoch": 15,
+              "eta": 0.004166666666666666,
+              "data_loss": 0.2623447874611959,
+              "penalized_loss": 0.2623447874611959
+            },
+            {
+              "epoch": 30,
+              "eta": 0.002564102564102564,
+              "data_loss": 0.2512157159984566,
+              "penalized_loss": 0.2512157159984566
+            },
+            {
+              "epoch": 45,
+              "eta": 0.0018518518518518517,
+              "data_loss": 0.24433527228823063,
+              "penalized_loss": 0.24433527228823063
+            },
+            {
+              "epoch": 60,
+              "eta": 0.0014492753623188406,
+              "data_loss": 0.23573272062356804,
+              "penalized_loss": 0.23573272062356804
+            },
+            {
+              "epoch": 75,
+              "eta": 0.0011904761904761904,
+              "data_loss": 0.23278165988534819,
+              "penalized_loss": 0.23278165988534819
+            },
+            {
+              "epoch": 90,
+              "eta": 0.00101010101010101,
+              "data_loss": 0.231484470121271,
+              "penalized_loss": 0.231484470121271
+            }
+          ],
+          "runtime_seconds": 109.19397497177124
+        },
+        "logistic_encoded": {
+          "model": "logistic_encoded",
+          "threshold": 0.23332578020293449,
+          "inner_calibration_f1": 0.4314358538657604,
+          "metrics": {
+            "threshold": 0.23332578020293449,
+            "TP": 2751,
+            "FP": 4212,
+            "TN": 55620,
+            "FN": 3044,
+            "accuracy": 0.8894357505295076,
+            "precision": 0.3950883239982766,
+            "recall": 0.47471958584987056,
+            "f1": 0.43125881799655114,
+            "specificity": 0.9296028880866426,
+            "balanced_accuracy": 0.7021612369682566,
+            "roc_auc": 0.8618258676782768,
+            "pr_auc": 0.4191772162603444
+          },
+          "preprocessing": {
+            "n_input_features": 301,
+            "n_numeric": 81,
+            "n_categorical": 220,
+            "n_dummies": 1051,
+            "design_dimension": 1133
+          },
+          "optimizer": {
+            "name": "plain single-sample SGD",
+            "lr": 0.01,
+            "schedule": "inverse",
+            "decay": 0.1,
+            "epochs": 90,
+            "seed": 2027
+          },
+          "regularization": {
+            "lambda": 0.0,
+            "penalty": "all weights"
+          },
+          "train_loss": 0.2156374653857809,
+          "penalized_train_objective": 0.2156374653857809,
+          "weight_l2": 10.417838810438301,
+          "grad_inf": 0.004818347732880002,
+          "history": [
+            {
+              "epoch": 15,
+              "eta": 0.004166666666666666,
+              "data_loss": 0.22576494040935996,
+              "penalized_loss": 0.22576494040935996
+            },
+            {
+              "epoch": 30,
+              "eta": 0.002564102564102564,
+              "data_loss": 0.22565662437675968,
+              "penalized_loss": 0.22565662437675968
+            },
+            {
+              "epoch": 45,
+              "eta": 0.0018518518518518517,
+              "data_loss": 0.21790559485887248,
+              "penalized_loss": 0.21790559485887248
+            },
+            {
+              "epoch": 60,
+              "eta": 0.0014492753623188406,
+              "data_loss": 0.21880225102682288,
+              "penalized_loss": 0.21880225102682288
+            },
+            {
+              "epoch": 75,
+              "eta": 0.0011904761904761904,
+              "data_loss": 0.21597541862230563,
+              "penalized_loss": 0.21597541862230563
+            },
+            {
+              "epoch": 90,
+              "eta": 0.00101010101010101,
+              "data_loss": 0.2156374653857809,
+              "penalized_loss": 0.2156374653857809
+            }
+          ],
+          "runtime_seconds": 131.01286482810974
+        },
+        "reg_logistic_encoded": {
+          "model": "reg_logistic_encoded",
+          "threshold": 0.23983277865168118,
+          "inner_calibration_f1": 0.4330627051304197,
+          "metrics": {
+            "threshold": 0.23983277865168118,
+            "TP": 2691,
+            "FP": 4008,
+            "TN": 55824,
+            "FN": 3104,
+            "accuracy": 0.8916299693723619,
+            "precision": 0.4017017465293327,
+            "recall": 0.4643658326143227,
+            "f1": 0.4307667680486633,
+            "specificity": 0.933012434817489,
+            "balanced_accuracy": 0.6986891337159058,
+            "roc_auc": 0.8621920901100015,
+            "pr_auc": 0.41912345538607654
+          },
+          "preprocessing": {
+            "n_input_features": 301,
+            "n_numeric": 81,
+            "n_categorical": 220,
+            "n_dummies": 1051,
+            "design_dimension": 1133
+          },
+          "optimizer": {
+            "name": "plain single-sample SGD",
+            "lr": 0.01,
+            "schedule": "inverse",
+            "decay": 0.1,
+            "epochs": 90,
+            "seed": 2027
+          },
+          "regularization": {
+            "lambda": 1e-05,
+            "penalty": "all weights"
+          },
+          "train_loss": 0.2158662503337695,
+          "penalized_train_objective": 0.216444032448821,
+          "weight_l2": 7.60119803091268,
+          "grad_inf": 0.004831625283897833,
+          "history": [
+            {
+              "epoch": 15,
+              "eta": 0.004166666666666666,
+              "data_loss": 0.2258134267897964,
+              "penalized_loss": 0.22637586751298377
+            },
+            {
+              "epoch": 30,
+              "eta": 0.002564102564102564,
+              "data_loss": 0.2258547757759666,
+              "penalized_loss": 0.22642724875367332
+            },
+            {
+              "epoch": 45,
+              "eta": 0.0018518518518518517,
+              "data_loss": 0.21810216313399655,
+              "penalized_loss": 0.21868033523554192
+            },
+            {
+              "epoch": 60,
+              "eta": 0.0014492753623188406,
+              "data_loss": 0.21908050654198205,
+              "penalized_loss": 0.21965927625681703
+            },
+            {
+              "epoch": 75,
+              "eta": 0.0011904761904761904,
+              "data_loss": 0.21622805971077463,
+              "penalized_loss": 0.21680625292112668
+            },
+            {
+              "epoch": 90,
+              "eta": 0.00101010101010101,
+              "data_loss": 0.2158662503337695,
+              "penalized_loss": 0.216444032448821
+            }
+          ],
+          "runtime_seconds": 170.0059244632721
+        }
+      }
+    },
+    {
+      "fold": 4,
+      "config_hash": "d8cba7f37b6e0b6087664b07695005fb",
+      "inner_split_seed": 120284,
+      "counts": {
+        "eval_rows": 65627,
+        "eval_pos": 5795,
+        "eval_neg": 59832,
+        "train_rows": 262508,
+        "train_pos": 23180,
+        "train_neg": 239328
+      },
+      "inner_counts": {
+        "fit_rows": 210006,
+        "cal_rows": 52502,
+        "fit_pos": 18544,
+        "fit_neg": 191462,
+        "cal_pos": 4636,
+        "cal_neg": 47866
+      },
+      "thresholds": {
+        "ridge": 0.20821537437960924,
+        "logistic_numeric": 0.1945578982555109,
+        "logistic_encoded": 0.26349707696157043,
+        "reg_logistic_encoded": 0.24267964455271474
+      },
+      "models": {
+        "majority": {
+          "model": "majority",
+          "threshold": null,
+          "inner_calibration_f1": 0.0,
+          "metrics": {
+            "threshold": null,
+            "TP": 0,
+            "FP": 0,
+            "TN": 59832,
+            "FN": 5795,
+            "accuracy": 0.911697929205967,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "specificity": 1.0,
+            "balanced_accuracy": 0.5,
+            "roc_auc": 0.5,
+            "pr_auc": 0.08830207079403295
+          },
+          "preprocessing": {
+            "design_dimension": 1
+          },
+          "optimizer": {
+            "name": "always negative"
+          },
+          "regularization": null,
+          "train_loss": null,
+          "penalized_train_objective": null,
+          "weight_l2": null,
+          "grad_inf": null,
+          "history": [],
+          "runtime_seconds": 0.0
+        },
+        "ridge": {
+          "model": "ridge",
+          "threshold": 0.20821537437960924,
+          "inner_calibration_f1": 0.43071948261924015,
+          "metrics": {
+            "threshold": 0.20821537437960924,
+            "TP": 3266,
+            "FP": 6364,
+            "TN": 53468,
+            "FN": 2529,
+            "accuracy": 0.864491748822893,
+            "precision": 0.3391484942886812,
+            "recall": 0.5635893011216566,
+            "f1": 0.42346839546191245,
+            "specificity": 0.8936355127690868,
+            "balanced_accuracy": 0.7286124069453717,
+            "roc_auc": 0.8550100246176784,
+            "pr_auc": 0.40909694010730413
+          },
+          "preprocessing": {
+            "n_input_features": 301,
+            "n_numeric": 82,
+            "n_categorical": 219,
+            "n_dummies": 1033,
+            "design_dimension": 1116
+          },
+          "optimizer": {
+            "name": "normal equations",
+            "ridge_lambda": 0.0001
+          },
+          "regularization": {
+            "lambda": 0.0001,
+            "penalty": "all weights"
+          },
+          "train_mse": 0.06440815451540931,
+          "penalized_train_objective": 0.03229519921474167,
+          "weight_l2": 0.9545782159520395,
+          "grad_inf": null,
+          "history": [],
+          "runtime_seconds": 1.413743257522583,
+          "half_train_mse": 0.032204077257704654,
+          "ridge_objective_definition": "0.5 * mean((X @ w - y)**2) + ridge_lambda * sum(w**2)"
+        },
+        "logistic_numeric": {
+          "model": "logistic_numeric",
+          "threshold": 0.1945578982555109,
+          "inner_calibration_f1": 0.4000606842145188,
+          "metrics": {
+            "threshold": 0.1945578982555109,
+            "TP": 3121,
+            "FP": 6648,
+            "TN": 53184,
+            "FN": 2674,
+            "accuracy": 0.8579548051868895,
+            "precision": 0.31947998771624525,
+            "recall": 0.5385677308024158,
+            "f1": 0.4010537136982781,
+            "specificity": 0.8888888888888888,
+            "balanced_accuracy": 0.7137283098456524,
+            "roc_auc": 0.8365695878283756,
+            "pr_auc": 0.34024771485188726
+          },
+          "preprocessing": {
+            "n_input_features": 301,
+            "n_numeric": 301,
+            "n_categorical": 0,
+            "n_dummies": 0,
+            "design_dimension": 302
+          },
+          "optimizer": {
+            "name": "plain single-sample SGD",
+            "lr": 0.01,
+            "schedule": "inverse",
+            "decay": 0.1,
+            "epochs": 90,
+            "seed": 2027
+          },
+          "regularization": {
+            "lambda": 0.0,
+            "penalty": "all weights"
+          },
+          "train_loss": 0.2327351798410334,
+          "penalized_train_objective": 0.2327351798410334,
+          "weight_l2": 4.410145148976966,
+          "grad_inf": 0.008133721950036834,
+          "history": [
+            {
+              "epoch": 15,
+              "eta": 0.004166666666666666,
+              "data_loss": 0.263103645458764,
+              "penalized_loss": 0.263103645458764
+            },
+            {
+              "epoch": 30,
+              "eta": 0.002564102564102564,
+              "data_loss": 0.2574799841705137,
+              "penalized_loss": 0.2574799841705137
+            },
+            {
+              "epoch": 45,
+              "eta": 0.0018518518518518517,
+              "data_loss": 0.23941218828764574,
+              "penalized_loss": 0.23941218828764574
+            },
+            {
+              "epoch": 60,
+              "eta": 0.0014492753623188406,
+              "data_loss": 0.23483910016361978,
+              "penalized_loss": 0.23483910016361978
+            },
+            {
+              "epoch": 75,
+              "eta": 0.0011904761904761904,
+              "data_loss": 0.2325588352515799,
+              "penalized_loss": 0.2325588352515799
+            },
+            {
+              "epoch": 90,
+              "eta": 0.00101010101010101,
+              "data_loss": 0.2327351798410334,
+              "penalized_loss": 0.2327351798410334
+            }
+          ],
+          "runtime_seconds": 96.98825716972351
+        },
+        "logistic_encoded": {
+          "model": "logistic_encoded",
+          "threshold": 0.26349707696157043,
+          "inner_calibration_f1": 0.43623085144282153,
+          "metrics": {
+            "threshold": 0.26349707696157043,
+            "TP": 3333,
+            "FP": 6516,
+            "TN": 53316,
+            "FN": 2462,
+            "accuracy": 0.8631965502003749,
+            "precision": 0.33840999086201645,
+            "recall": 0.575150992234685,
+            "f1": 0.4261058552799795,
+            "specificity": 0.8910950661853189,
+            "balanced_accuracy": 0.7331230292100019,
+            "roc_auc": 0.8567934536518185,
+            "pr_auc": 0.40998678577455383
+          },
+          "preprocessing": {
+            "n_input_features": 301,
+            "n_numeric": 82,
+            "n_categorical": 219,
+            "n_dummies": 1033,
+            "design_dimension": 1116
+          },
+          "optimizer": {
+            "name": "plain single-sample SGD",
+            "lr": 0.01,
+            "schedule": "inverse",
+            "decay": 0.1,
+            "epochs": 90,
+            "seed": 2027
+          },
+          "regularization": {
+            "lambda": 0.0,
+            "penalty": "all weights"
+          },
+          "train_loss": 0.22333432303892387,
+          "penalized_train_objective": 0.22333432303892387,
+          "weight_l2": 10.67593879524772,
+          "grad_inf": 0.032683880306009196,
+          "history": [
+            {
+              "epoch": 15,
+              "eta": 0.004166666666666666,
+              "data_loss": 0.2694766814044464,
+              "penalized_loss": 0.2694766814044464
+            },
+            {
+              "epoch": 30,
+              "eta": 0.002564102564102564,
+              "data_loss": 0.22271559065615693,
+              "penalized_loss": 0.22271559065615693
+            },
+            {
+              "epoch": 45,
+              "eta": 0.0018518518518518517,
+              "data_loss": 0.21853508868472207,
+              "penalized_loss": 0.21853508868472207
+            },
+            {
+              "epoch": 60,
+              "eta": 0.0014492753623188406,
+              "data_loss": 0.21970856163661198,
+              "penalized_loss": 0.21970856163661198
+            },
+            {
+              "epoch": 75,
+              "eta": 0.0011904761904761904,
+              "data_loss": 0.21704067691719575,
+              "penalized_loss": 0.21704067691719575
+            },
+            {
+              "epoch": 90,
+              "eta": 0.00101010101010101,
+              "data_loss": 0.22333432303892387,
+              "penalized_loss": 0.22333432303892387
+            }
+          ],
+          "runtime_seconds": 115.83299088478088
+        },
+        "reg_logistic_encoded": {
+          "model": "reg_logistic_encoded",
+          "threshold": 0.24267964455271474,
+          "inner_calibration_f1": 0.4381655068332355,
+          "metrics": {
+            "threshold": 0.24267964455271474,
+            "TP": 3508,
+            "FP": 7363,
+            "TN": 52469,
+            "FN": 2287,
+            "accuracy": 0.8529568622670547,
+            "precision": 0.3226934044706099,
+            "recall": 0.6053494391716997,
+            "f1": 0.420976839073563,
+            "specificity": 0.8769387618665597,
+            "balanced_accuracy": 0.7411441005191297,
+            "roc_auc": 0.8571901179500472,
+            "pr_auc": 0.4093140729236889
+          },
+          "preprocessing": {
+            "n_input_features": 301,
+            "n_numeric": 82,
+            "n_categorical": 219,
+            "n_dummies": 1033,
+            "design_dimension": 1116
+          },
+          "optimizer": {
+            "name": "plain single-sample SGD",
+            "lr": 0.01,
+            "schedule": "inverse",
+            "decay": 0.1,
+            "epochs": 90,
+            "seed": 2027
+          },
+          "regularization": {
+            "lambda": 1e-05,
+            "penalty": "all weights"
+          },
+          "train_loss": 0.2236541831527114,
+          "penalized_train_objective": 0.22425548127095749,
+          "weight_l2": 7.754341482331546,
+          "grad_inf": 0.03282919721459785,
+          "history": [
+            {
+              "epoch": 15,
+              "eta": 0.004166666666666666,
+              "data_loss": 0.2702497340308256,
+              "penalized_loss": 0.27083387878824317
+            },
+            {
+              "epoch": 30,
+              "eta": 0.002564102564102564,
+              "data_loss": 0.2228813863245528,
+              "penalized_loss": 0.22348169440783158
+            },
+            {
+              "epoch": 45,
+              "eta": 0.0018518518518518517,
+              "data_loss": 0.21872793015114236,
+              "penalized_loss": 0.21932832668955618
+            },
+            {
+              "epoch": 60,
+              "eta": 0.0014492753623188406,
+              "data_loss": 0.21999240874501988,
+              "penalized_loss": 0.22059532541526217
+            },
+            {
+              "epoch": 75,
+              "eta": 0.0011904761904761904,
+              "data_loss": 0.2172621483491889,
+              "penalized_loss": 0.21786386668218355
+            },
+            {
+              "epoch": 90,
+              "eta": 0.00101010101010101,
+              "data_loss": 0.2236541831527114,
+              "penalized_loss": 0.22425548127095749
+            }
+          ],
+          "runtime_seconds": 153.01373100280762
+        }
+      }
+    }
+  ],
+  "summary": {
+    "majority": {
+      "f1_mean": 0.0,
+      "f1_sd": 0.0,
+      "auc_mean": 0.5,
+      "auc_sd": 0.0,
+      "pr_mean": 0.08830207079403295,
+      "pr_sd": 0.0,
+      "f1_values": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "auc_values": [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "pr_values": [
+        0.08830207079403295,
+        0.08830207079403295,
+        0.08830207079403295,
+        0.08830207079403295,
+        0.08830207079403295
+      ]
+    },
+    "ridge": {
+      "f1_mean": 0.4272198465090574,
+      "f1_sd": 0.002661251511390025,
+      "auc_mean": 0.8582892299762314,
+      "auc_sd": 0.002993483117164713,
+      "pr_mean": 0.4161014451658849,
+      "pr_sd": 0.006996755917173721,
+      "f1_values": [
+        0.4284640098434616,
+        0.43070533860271953,
+        0.42652997825411615,
+        0.42693151038307753,
+        0.42346839546191245
+      ],
+      "auc_values": [
+        0.858094277436702,
+        0.8600097788908165,
+        0.8623718658432856,
+        0.8559602030926744,
+        0.8550100246176784
+      ],
+      "pr_values": [
+        0.4128378424415632,
+        0.4188393311974398,
+        0.4269466704426867,
+        0.41278644164043066,
+        0.40909694010730413
+      ]
+    },
+    "logistic_numeric": {
+      "f1_mean": 0.40217156710113133,
+      "f1_sd": 0.0035940318156283037,
+      "auc_mean": 0.841124991794684,
+      "auc_sd": 0.003376088395468561,
+      "pr_mean": 0.3502116368154161,
+      "pr_sd": 0.015021926234253052,
+      "f1_values": [
+        0.3985115413686843,
+        0.40781841109709965,
+        0.40327956272497,
+        0.400194606616625,
+        0.4010537136982781
+      ],
+      "auc_values": [
+        0.8412158472829474,
+        0.8431611272564041,
+        0.8453172420309222,
+        0.8393611545747708,
+        0.8365695878283756
+      ],
+      "pr_values": [
+        0.33175631029502617,
+        0.36511130199282127,
+        0.3656133224882209,
+        0.34832953444912507,
+        0.34024771485188726
+      ]
+    },
+    "logistic_encoded": {
+      "f1_mean": 0.4314870107114876,
+      "f1_sd": 0.005295035915369559,
+      "auc_mean": 0.8618836440624488,
+      "auc_sd": 0.003009609262597167,
+      "pr_mean": 0.41881100324045895,
+      "pr_sd": 0.00699342059394551,
+      "f1_values": [
+        0.42701800816984065,
+        0.434037998394434,
+        0.4390143737166325,
+        0.43125881799655114,
+        0.4261058552799795
+      ],
+      "auc_values": [
+        0.8627232264144609,
+        0.8636306334180919,
+        0.8644450391495959,
+        0.8618258676782768,
+        0.8567934536518185
+      ],
+      "pr_values": [
+        0.4140279723216833,
+        0.42354858345470586,
+        0.4273144583910068,
+        0.4191772162603444,
+        0.40998678577455383
+      ]
+    },
+    "reg_logistic_encoded": {
+      "f1_mean": 0.4302689103627121,
+      "f1_sd": 0.006047078439249017,
+      "auc_mean": 0.8622350017495061,
+      "auc_sd": 0.002988520465816799,
+      "pr_mean": 0.4187543849049793,
+      "pr_sd": 0.007297318727931491,
+      "f1_values": [
+        0.4284471257033471,
+        0.43550773369199736,
+        0.4356460852959898,
+        0.4307667680486633,
+        0.420976839073563
+      ],
+      "auc_values": [
+        0.8629438787535211,
+        0.8641225053387909,
+        0.8647264165951694,
+        0.8621920901100015,
+        0.8571901179500472
+      ],
+      "pr_values": [
+        0.41399368708020057,
+        0.4240238093023325,
+        0.4273168998325979,
+        0.41912345538607654,
+        0.4093140729236889
+      ]
+    }
+  },
+  "paired_differences": {
+    "reg_logistic_minus_unregularized": {
+      "model_a": "reg_logistic_encoded",
+      "model_b": "logistic_encoded",
+      "direction": "F1(model_a) - F1(model_b)",
+      "mean": -0.0012181003487754527,
+      "sample_sd": 0.0029443990792936085,
+      "values": [
+        0.001429117533506441,
+        0.0014697352975633349,
+        -0.0033682884206426844,
+        -0.0004920499478878182,
+        -0.005129016206416537
+      ]
+    },
+    "encoded_minus_numeric": {
+      "model_a": "logistic_encoded",
+      "model_b": "logistic_numeric",
+      "direction": "F1(model_a) - F1(model_b)",
+      "mean": 0.02931544361035616,
+      "sample_sd": 0.004262657042980874,
+      "values": [
+        0.02850646680115637,
+        0.026219587297334368,
+        0.03573481099166248,
+        0.031064211379926154,
+        0.025052141581701437
+      ]
+    },
+    "unregularized_minus_ridge": {
+      "model_a": "logistic_encoded",
+      "model_b": "ridge",
+      "direction": "F1(model_a) - F1(model_b)",
+      "mean": 0.004267164202430107,
+      "sample_sd": 0.005091561794110031,
+      "values": [
+        -0.0014460016736209669,
+        0.0033326597917144873,
+        0.01248439546251634,
+        0.004327307613473608,
+        0.002637459818067067
+      ]
+    }
+  }
+}

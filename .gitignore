@@ -1,0 +1,25 @@
+# Supplied dataset and local secrets
+data/
+.env
+.env.*
+opencode.jsonc
+
+# Python and local test output
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+
+# Resumable experiment checkpoints
+experiments/results/.work/
+
+# Submission archives and LaTeX build files
+*.zip
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz

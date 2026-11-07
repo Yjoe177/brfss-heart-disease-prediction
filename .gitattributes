@@ -1,0 +1,4 @@
+# Preserve the verified prediction CSV byte-for-byte on every platform.
+results/submission.csv -text
+*.npz binary
+*.pdf binary

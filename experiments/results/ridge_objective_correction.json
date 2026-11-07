@@ -1,0 +1,59 @@
+{
+  "formula_before": "mean((X @ w - y)**2) + ridge_lambda * sum(w**2)",
+  "formula_after": "0.5 * mean((X @ w - y)**2) + ridge_lambda * sum(w**2)",
+  "reason": "The normal equations solve the objective with the factor 1/2; the legacy bookkeeping field omitted it.",
+  "source": "Deterministic recalculation from saved train_mse and weight_l2. No ridge weights or design matrices were needed; no retraining was performed.",
+  "ridge_lambda": 0.0001,
+  "folds": [
+    {
+      "fold": 0,
+      "train_mse": 0.06448500178047671,
+      "half_train_mse": 0.032242500890238356,
+      "weight_l2": 0.9432220378179192,
+      "ridge_lambda": 0.0001,
+      "legacy_penalized_objective": 0.06457396856173925,
+      "corrected_penalized_objective": 0.03233146767150089,
+      "difference": -0.032242500890238356
+    },
+    {
+      "fold": 1,
+      "train_mse": 0.06454051986763108,
+      "half_train_mse": 0.03227025993381554,
+      "weight_l2": 0.9409891361534217,
+      "ridge_lambda": 0.0001,
+      "legacy_penalized_objective": 0.06462906592306696,
+      "corrected_penalized_objective": 0.032358805989251414,
+      "difference": -0.03227025993381554
+    },
+    {
+      "fold": 2,
+      "train_mse": 0.0646261025567627,
+      "half_train_mse": 0.03231305127838135,
+      "weight_l2": 0.9347352530654583,
+      "ridge_lambda": 0.0001,
+      "legacy_penalized_objective": 0.06471347555609504,
+      "corrected_penalized_objective": 0.03240042427771368,
+      "difference": -0.032313051278381355
+    },
+    {
+      "fold": 3,
+      "train_mse": 0.06444905954794149,
+      "half_train_mse": 0.03222452977397074,
+      "weight_l2": 0.9408996686597972,
+      "ridge_lambda": 0.0001,
+      "legacy_penalized_objective": 0.0645375887665899,
+      "corrected_penalized_objective": 0.03231305899261915,
+      "difference": -0.03222452977397074
+    },
+    {
+      "fold": 4,
+      "train_mse": 0.06440815451540931,
+      "half_train_mse": 0.032204077257704654,
+      "weight_l2": 0.9545782159520395,
+      "ridge_lambda": 0.0001,
+      "legacy_penalized_objective": 0.06449927647244633,
+      "corrected_penalized_objective": 0.03229519921474167,
+      "difference": -0.032204077257704654
+    }
+  ]
+}

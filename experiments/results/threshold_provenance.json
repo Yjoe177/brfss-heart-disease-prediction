@@ -1,0 +1,79 @@
+{
+  "status": "reproduced_exactly",
+  "frozen_threshold": 0.21475973018819802,
+  "reproduced_threshold": 0.21475973018819802,
+  "threshold_abs_difference": 0.0,
+  "expected_inner_f1": 0.43360013770548245,
+  "reproduced_inner_f1": 0.43360013770548245,
+  "outer_split": {
+    "seed": 42,
+    "protocol": "stratified 80/20 split of all labeled rows",
+    "train_rows": 262508,
+    "val_rows": 65627,
+    "indices_file": "threshold_split_indices.npz",
+    "note": "Only outer_train indices are used to form the inner split; outer validation labels are not used for threshold selection."
+  },
+  "inner_split": {
+    "seed": 123,
+    "protocol": "stratified 80/20 split of outer_train",
+    "fit_rows": 210006,
+    "cal_rows": 52502,
+    "fit_pos": 18544,
+    "fit_neg": 191462,
+    "cal_pos": 4636,
+    "cal_neg": 47866
+  },
+  "configuration": {
+    "model": "L2 logistic regression",
+    "optimizer": "plain single-sample SGD",
+    "lr": 0.01,
+    "schedule": "inverse",
+    "schedule_formula": "eta_t = 0.01 / (1 + 0.1*(t-1))",
+    "epochs": 90,
+    "seed": 2027,
+    "lambda": 1e-05,
+    "penalty": "all weights, including intercept"
+  },
+  "selection_rule": "maximize positive-class F1 over threshold candidates; candidates are the midpoints between adjacent sorted calibration scores; np.argmax breaks exact ties by choosing the first maximum.",
+  "metrics_at_selected_threshold": {
+    "threshold": 0.21475973018819802,
+    "TP": 2519,
+    "FP": 4464,
+    "TN": 43402,
+    "FN": 2117,
+    "accuracy": 0.8746523941945069,
+    "precision": 0.36073320922239727,
+    "recall": 0.5433563416738568,
+    "f1": 0.43360013770548245,
+    "specificity": 0.9067396481845151,
+    "balanced_accuracy": 0.7250479949291859,
+    "roc_auc": 0.8601477901693277,
+    "pr_auc": 0.4095851201836586
+  },
+  "metrics_at_0.5": {
+    "threshold": 0.5,
+    "TP": 913,
+    "FP": 738,
+    "TN": 47128,
+    "FN": 3723,
+    "accuracy": 0.9150318083120643,
+    "precision": 0.5529981829194428,
+    "recall": 0.19693701466781707,
+    "f1": 0.29044059169715286,
+    "specificity": 0.9845819579659884,
+    "balanced_accuracy": 0.5907594863169027,
+    "roc_auc": 0.8601477901693277,
+    "pr_auc": 0.4095851201836586
+  },
+  "train_loss": 0.21650138792970303,
+  "grad_inf": 0.006768993909086976,
+  "runtime_seconds": 127.38813591003418,
+  "regularization_comparison": {
+    "note": "The regularization study uses the same seed-42 outer partition for its 262,508/65,627 fit/calibration split, but fits on all 262,508 rows and optimizes its own threshold on its 65,627 calibration rows. It is a different model/threshold-selection procedure.",
+    "lambda": 1e-05,
+    "optimized_threshold": 0.17056890112148465,
+    "f1_at_optimized_threshold": 0.4374029640084686,
+    "f1_at_frozen_threshold": 0.425517867458942
+  },
+  "evidence": "The archived SGD-only finalization record contained the same threshold and inner metrics. This script reproduces them from the saved split indices and documented training configuration. Only the inner calibration model is retrained; no CV, regularization training, final model, or test prediction is rerun."
+}

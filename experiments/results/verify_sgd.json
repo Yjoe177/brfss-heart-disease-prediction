@@ -1,0 +1,23 @@
+{
+  "passed": true,
+  "checks": {
+    "gradient_lambda_0": true,
+    "gradient_lambda_0.001": true,
+    "average_individual_gradient": true,
+    "single_sample_update_l2": true,
+    "schedule_values": true,
+    "shuffle_reproducible": true,
+    "shuffle_seed_changes_order": true,
+    "synthetic_loss_decreases": true,
+    "all_finite": true,
+    "objective_consistent": true,
+    "single_sample_training_step": true
+  },
+  "configuration": {
+    "learning_rate": 0.01,
+    "decay": 0.1,
+    "epochs": 90,
+    "lambda": 1e-05,
+    "seed": 2027
+  }
+}
